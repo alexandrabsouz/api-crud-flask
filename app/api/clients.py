@@ -13,3 +13,9 @@ def get_clients():
     per_page = min(request.args.get('per_page', 10, type=int), 100)
     data = Client.to_collection_dict(Client.query, page, per_page, 'api.get_clients')
     return jsonify(data)
+
+
+@api.route('/clients/<int:id>', methods=['GET'])
+@token_auth.login_required
+def get_client(id):
+    return jsonify(Client.query.get_or_404(id).to_dict())
