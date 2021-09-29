@@ -76,3 +76,27 @@ class Client(PaginatedAPIMixin, db.Model):
             "email": self.email
         }
         return data
+
+    def to_dict_with_address(self):
+        data = {
+            "id": self.id,
+            "full_name": self.full_name,
+            "email": self.email,
+            "address": {
+                "zip_code": self.address.zip_code,
+                "city": self.address.city,
+                "state": self.address.state,
+                "number": self.address.number
+            }
+        }
+        return data
+
+    def from_dict(self, data, new_user=False):
+        for field in ["email", "full_name"]:
+            if field in data:
+                setattr(self, field, data[field])
+        if new_user and "password" in data:
+            self.set_password(data["password"])
+
+    def __repr__(self):
+        return "<Clients: {}>".format(self.id)
