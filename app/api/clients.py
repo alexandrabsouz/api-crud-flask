@@ -41,3 +41,20 @@ def signup():
     response.status_code = 201
     response.headers['Location'] = url_for('api.get_client', id=client.id)
     return response
+
+
+@api.route('/clients/<int:id>', methods=['PUT'])
+@token_auth.login_required
+def update_client(id):
+    if g.current_user.id != id:
+        abort(403)
+    client = Client.query.get_or_404(id)
+    data = request.get_json() or {}
+    if 'full_name' not in data:
+        return bad_request('full_name is missing')
+    elif 'email' in data and data['email'] != client.email and \
+            Client.query.filter_by(email=data['email']).first():
+        return bad_request('Use another email')
+    client.from_dict(data, new_user=False)
+    db.session.commit()
+    return jsonify(Client.to_dict())
