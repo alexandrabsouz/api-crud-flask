@@ -36,3 +36,17 @@ def create_product():
     response.status_code = 201
     response.headers['Location'] = url_for('api.get_product', id=product.id)
     return response
+
+
+@api.route('/products/<int:id>', methods=['PUT'])
+@token_auth.login_required
+def update_product(id):
+    if g.current_user.id != id:
+        abort(403)
+    product = Product.query.get_or_404(id)
+    data = request.get_json() or {}
+    if 'name' not in data or 'price' not in data or 'description' not in data or 'img_url' not in data:
+        return bad_request('price, description, name or img_url missing')
+    product.from_dict(data)
+    db.session.commit()
+    return jsonify(product.to_dict())
