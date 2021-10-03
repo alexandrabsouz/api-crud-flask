@@ -58,3 +58,12 @@ def update_client(id):
     client.from_dict(data, new_user=False)
     db.session.commit()
     return jsonify(Client.to_dict())
+
+
+@api.route('/client/<int:id>', methods=['DELETE'])
+@token_auth.login_required
+def delete_client(id):
+    client = Client.query.get_or_404(id)
+    db.session.delete(client)
+    db.session.commit()
+    return jsonify({"message": "resource deleted"}), 202
