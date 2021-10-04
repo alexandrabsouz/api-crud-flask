@@ -3,7 +3,7 @@
 The api consists of a simple CRUD that contains database relationship types, GET, POST, PUT and DELETE, for registration of clients and their users.
 <br><br><br><br>
 
-<img src="https://github.com/alexandrabsouz/api-crud-flask/blob/main/img/flask_frasco.png" min-width="200px" max-width="300px" width="400px" align="center" alt="Alexandra img">
+<img src="https://github.com/alexandrabsouz/api-crud-flask/blob/main/img/flask_frasco.png" min-width="200px" max-width="250px" width="300px" align="center" alt="Alexandra img">
 <br><br><br>
 
 ## Requirements
