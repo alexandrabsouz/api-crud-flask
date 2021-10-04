@@ -41,7 +41,7 @@ $ source venv/bin/activate
 3 - Install requirements:
 
 ```sh
-(env)$ pip install -r dev-requirements.txt
+(venv)$ pip install -r dev-requirements.txt
 ```
 Note the `(venv)` in front of the prompt. This shows that the virtual environment was created by `python3-venv`.
 
