@@ -16,8 +16,8 @@ The api consists of a simple CRUD that contains database relationship types, GET
 
 ## Dependencies
 
-* [Python](https://www.python.org/downloads/release/python-397/) - Linguagem utilizada;
-* [Flask](https://flask.palletsprojects.com/en/2.0.x/) - Framework web utilizado;
+* [Python](https://www.python.org/downloads/release/python-397/) - Programming language used;
+* [Flask](https://flask.palletsprojects.com/en/2.0.x/) - Framework web used;
 
 
 
