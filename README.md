@@ -2,7 +2,8 @@
  API developed for an [`IZA.com.vc`](https://iza.com.vc/) Junior backend developer.
 The api consists of a simple CRUD that contains database relationship types, GET, POST, PUT and DELETE, for registration of clients and their users.
 
-![Imagem frasco](https://github.com/alexandrabsouz/api-crud-flask/blob/main/img/flask_frasco.png)
+<img src="https://github.com/alexandrabsouz/api-crud-flask/blob/main/img/flask_frasco.png" min-width="250px" max-width="300px" width="400px" align="center" alt="Alexandra img">
+<br><br><br>
 
 ## Requirements
 
