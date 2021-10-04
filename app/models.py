@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import current_app, url_for
+from sqlalchemy.orm import backref
 from app import db
 import os
 import base64
@@ -40,7 +41,7 @@ class Client(PaginatedAPIMixin, db.Model):
     full_name = db.Column(db.String(60), index=True)
     email = db.Column(db.String(60), index=True, unique=True)
     password = db.Column(db.String(128))
-    address = db.relationship("Address", backref="client", uselist=False)
+    address = db.relationship("Address", backref=backref("client", passive_deletes=True))
     token = db.Column(db.String(32), index=True, unique=True)
     token_expiration = db.Column(db.DateTime)
 
@@ -107,7 +108,7 @@ class Address(PaginatedAPIMixin, db.Model):
     __tablename__ = "addresses"
 
     id = db.Column(db.Integer, primary_key=True)
-    client_id = db.Column(db.Integer, db.ForeignKey("clients.id"))
+    client_id = db.Column(db.Integer, db.ForeignKey("clients.id"), ondelete='CASCADE')
     zip_code = db.Column(db.String(60), index=True)
     state = db.Column(db.String(60))
     city = db.Column(db.String(60))
@@ -138,6 +139,7 @@ class Product(PaginatedAPIMixin, db.Model):
     __tablename__ = "products"
 
     id = db.Column(db.Integer, primary_key=True)
+    client_id = db.Column(db.Integer, db.ForeignKey("clients.id"), ondelete='CASCADE')
     name = db.Column(db.String(60))
     price = db.Column(db.Float)
     description = db.Column(db.String(300))
