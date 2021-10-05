@@ -47,6 +47,13 @@ Note the `(venv)` in front of the prompt. This shows that the virtual environmen
 
 4 - Once `pip` has finished downloading dependencies:
 
+    To configure your flask application:
+         ```sh
+        (venv)$ export FLASK_APP=api-crud-flask.py
+        (venv)$ export FLASK_ENV=export FLASK_ENV=development
+        ```
+        Any questions, learn more at [Quickstart](https://flask.palletsprojects.com/en/2.0.x/quickstart/)
+
     To migrate the database:
         ```sh
         (venv)$ flask db init    --> to init the db
