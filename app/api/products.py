@@ -4,6 +4,20 @@ from app.models import Product
 from app.api import api
 from app.api.errors import bad_request
 from app.api.auth import token_auth
+import os
+
+
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+UPLOAD_DIRECTORY = os.path.join(BASE_DIR, "uploads/")
+
+if not os.path.exists(UPLOAD_DIRECTORY):
+    os.makedirs(UPLOAD_DIRECTORY)
+
+
+@api.route('/products/<int:id>', methods=['GET'])
+@token_auth.login_required
+def get_product(id):
+    return jsonify(Product.query.get_or_404(id).to_dict())
 
 
 @api.route('/products', methods=['GET'])
@@ -13,12 +27,6 @@ def get_products():
     per_page = min(request.args.get('per_page', 10, type=int), 100)
     data = Product.to_collection_dict(Product.query, page, per_page, 'api.get_products')
     return jsonify(data)
-
-
-@api.route('/products/<int:id>', methods=['GET'])
-@token_auth.login_required
-def get_product(id):
-    return jsonify(Product.query.get_or_404(id).to_dict())
 
 
 @api.route('/product', methods=['POST'])
@@ -38,7 +46,7 @@ def create_product():
     return response
 
 
-@api.route('/products/<int:id>', methods=['PUT'])
+@api.route('/product/<int:id>', methods=['PUT'])
 @token_auth.login_required
 def update_product(id):
     if g.current_user.id != id:
@@ -52,7 +60,7 @@ def update_product(id):
     return jsonify(product.to_dict())
 
 
-@api.route('/products/<int:id>', methods=['DELETE'])
+@api.route('/product/<int:id>', methods=['DELETE'])
 @token_auth.login_required
 def delete_product(id):
     product = Product.query.get_or_404(id)
