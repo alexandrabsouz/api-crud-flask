@@ -4,6 +4,7 @@ from app.models import Product
 from app.api import api
 from app.api.errors import bad_request
 from app.api.auth import token_auth
+
 import os
 
 
@@ -14,7 +15,7 @@ if not os.path.exists(UPLOAD_DIRECTORY):
     os.makedirs(UPLOAD_DIRECTORY)
 
 
-@api.route('/products/<int:id>', methods=['GET'])
+@api.route('/product/<int:id>', methods=['GET'])
 @token_auth.login_required
 def get_product(id):
     return jsonify(Product.query.get_or_404(id).to_dict())

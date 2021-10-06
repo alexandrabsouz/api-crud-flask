@@ -1,10 +1,9 @@
 from flask import jsonify, request, url_for, g, abort
 from app import db
-from app.models import Client, Address
+from app.models import Client, Address, Product
 from app.api import api
 from app.api.errors import bad_request
 from app.api.auth import token_auth
-from app.models.products import Product
 
 
 @api.route("/client/products/<int:client_id>", methods=['GET'])
@@ -15,7 +14,7 @@ def list_all_products_from_id(client_id):
     return jsonify(products)
 
 
-@api.route('/clients/<int:id>', methods=['GET'])
+@api.route('/client/<int:id>', methods=['GET'])
 @token_auth.login_required
 def get_client(id):
     return jsonify(Client.query.get_or_404(id).to_dict())
