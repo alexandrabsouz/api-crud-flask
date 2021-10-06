@@ -14,6 +14,7 @@ def create_app(config_class=Config):
     migrate.init_app(app, db, render_as_batch=True)
 
     from app.api import api as api_blueprint
+
     app.register_blueprint(api_blueprint, url_prefix="/api/v1/")
 
     from app import views, models

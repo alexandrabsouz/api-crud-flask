@@ -39,8 +39,12 @@ class Client(PaginatedAPIMixin, db.Model):
     full_name = db.Column(db.String(60), index=True)
     email = db.Column(db.String(60), index=True, unique=True)
     password = db.Column(db.String(128))
-    address = db.relationship("Address", backref="client", uselist=False, cascade="all, delete")
-    product = db.relationship("Product", backref="client", lazy="dynamic", cascade="all, delete")
+    address = db.relationship(
+        "Address", backref="client", uselist=False, cascade="all, delete"
+    )
+    product = db.relationship(
+        "Product", backref="client", lazy="dynamic", cascade="all, delete"
+    )
     token = db.Column(db.String(32), index=True, unique=True)
     token_expiration = db.Column(db.DateTime)
 
@@ -70,11 +74,7 @@ class Client(PaginatedAPIMixin, db.Model):
         return user
 
     def to_dict(self):
-        data = {
-            "id": self.id,
-            "full_name": self.full_name,
-            "email": self.email
-        }
+        data = {"id": self.id, "full_name": self.full_name, "email": self.email}
         return data
 
     def to_dict_with_address(self):
@@ -86,8 +86,8 @@ class Client(PaginatedAPIMixin, db.Model):
                 "zip_code": self.address.zip_code,
                 "city": self.address.city,
                 "state": self.address.state,
-                "number": self.address.number
-            }
+                "number": self.address.number,
+            },
         }
         return data
 
@@ -153,10 +153,9 @@ class Product(PaginatedAPIMixin, db.Model):
             "name": self.name,
             "price": self.price,
             "description": self.description,
-            "img_url": self.img_url
+            "img_url": self.img_url,
         }
         return data
-
 
     def from_dict(self, data):
         for field in ["name", "price", "description", "img_url"]:
