@@ -7,7 +7,7 @@ from app.api.auth import token_auth
 from app.models.products import Product
 
 
-@api.route("/clients/products/<int:client_id>", methods=['GET'])
+@api.route("/client/products/<int:client_id>", methods=['GET'])
 @token_auth.login_required
 def list_all_products_from_id(client_id):
     query = Product.query.filter_by(client_id=client_id).all()
@@ -52,7 +52,7 @@ def signup():
     return response
 
 
-@api.route('/clients/<int:id>', methods=['PUT'])
+@api.route('/client/<int:id>', methods=['PUT'])
 @token_auth.login_required
 def update_client(id):
     if g.current_user.id != id:

@@ -19,7 +19,7 @@ class Client(PaginatedAPIMixin, db.Model):
     email = db.Column(db.String(60), index=True, unique=True)
     password = db.Column(db.String(128))
     address = db.relationship("Address", backref=backref("client", passive_deletes=True))
-    product = db.relationship("Product", backref=backref("client", passive_deletes=True, lazy="dynamic"))
+    product = db.relationship("Product", backref=backref("client", passive_deletes=True))
     token = db.Column(db.String(32), index=True, unique=True)
     token_expiration = db.Column(db.DateTime)
 
