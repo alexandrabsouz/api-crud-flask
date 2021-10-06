@@ -4,7 +4,7 @@ The api consists of a simple CRUD that contains database relationship types, GET
 <br><br><br><br>
 
 <img src="https://github.com/alexandrabsouz/api-crud-flask/blob/main/img/flask_frasco.png" min-width="200px" max-width="300px" width="200px" align="center" alt="frasco img">
-<br><br><br>
+
 
 ## Requirements
 
@@ -41,11 +41,18 @@ $ source venv/bin/activate
 3 - Install requirements:
 
 ```sh
-(env)$ pip install -r dev-requirements.txt
+(venv)$ pip install -r dev-requirements.txt
 ```
 Note the `(venv)` in front of the prompt. This shows that the virtual environment was created by `python3-venv`.
 
 4 - Once `pip` has finished downloading dependencies:
+
+    To configure your flask application:
+         ```sh
+        (venv)$ export FLASK_APP=api-crud-flask.py
+        (venv)$ export FLASK_ENV=export FLASK_ENV=development
+        ```
+   Any questions, learn more at [Quickstart](https://flask.palletsprojects.com/en/2.0.x/quickstart/)
 
     To migrate the database:
         ```sh
