@@ -4,6 +4,21 @@ from app.models import Client, Address
 from app.api import api
 from app.api.errors import bad_request
 from app.api.auth import token_auth
+from app.models.products import Product
+
+
+@api.route("/clients/products/<int:client_id>", methods=['GET'])
+@token_auth.login_required
+def list_all_products_from_id(client_id):
+    query = Product.query.filter_by(client_id=client_id).all()
+    products = [product.to_dict() for product in query]
+    return jsonify(products)
+
+
+@api.route('/clients/<int:id>', methods=['GET'])
+@token_auth.login_required
+def get_client(id):
+    return jsonify(Client.query.get_or_404(id).to_dict())
 
 
 @api.route('/clients', methods=['GET'])
@@ -13,12 +28,6 @@ def get_clients():
     per_page = min(request.args.get('per_page', 10, type=int), 100)
     data = Client.to_collection_dict(Client.query, page, per_page, 'api.get_clients')
     return jsonify(data)
-
-
-@api.route('/clients/<int:id>', methods=['GET'])
-@token_auth.login_required
-def get_client(id):
-    return jsonify(Client.query.get_or_404(id).to_dict())
 
 
 @api.route('/signup', methods=['POST'])
