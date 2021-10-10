@@ -1,5 +1,4 @@
 
- API developed for an [`IZA.com.vc`](https://iza.com.vc/) Junior backend developer.
 The api consists of a simple CRUD that contains database relationship types, GET, POST, PUT and DELETE, for registration of clients and their users.
 <br><br><br><br>
 
